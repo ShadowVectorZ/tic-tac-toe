@@ -32,24 +32,49 @@ return {board}
 
 
 
-const computerChoice=function(){
-    let choice=0
-    let secondChoice=0 
-    choice = Number(Math.floor(Math.random()*gameboard.board.length))
-    secondChoice=Number(Math.floor(Math.random()*gameboard.board.length))
-    gameboard.board[Number(choice)][Number(secondChoice)]='x'
-    console.log(gameboard.board)
-}
 
 
-const game=function(){
-let gameMode
-if (gameMode==="vsComputer"){
+// const game=function(){
+// let gameMode='vsComputer'
+// if (gameMode==="vsComputer"){
 
-}
+    const playerChoice=function(row,column){
+        if(gameboard.board[Number(row)][Number(column)]==='')
+        gameboard.board[Number(row)][Number(column)]='o'
+        else return("spot is taken, try again")
+    
 
-else if(gameMode==='vsPlayer'){
+        let choice=0
+        let secondChoice=0
 
-}
+        const computerChoice=function(){
+        let getComputerChoice=function(){
+            choice = Number(Math.floor(Math.random()*gameboard.board.length))
+            secondChoice=Number(Math.floor(Math.random()*gameboard.board.length))
+            
+        }
+        getComputerChoice()
 
-}
+        do{getComputerChoice()
+        } while(!gameboard.board[Number(choice)][Number(secondChoice)]=='')
+        
+        
+
+        
+        gameboard.board[Number(choice)][Number(secondChoice)]='x'
+        console.log(gameboard.board)
+        console.log(choice)
+        console.log(secondChoice)
+        }
+    
+    computerChoice()
+    }
+
+    // playerChoice()
+// }
+
+// else if(gameMode==='vsPlayer'){
+
+// }
+
+// }
