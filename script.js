@@ -38,35 +38,42 @@ return {board}
 // let gameMode='vsComputer'
 // if (gameMode==="vsComputer"){
 
-    const playerChoice=function(row,column){
+    const singleRound=function(row,column){
         if(gameboard.board[Number(row)][Number(column)]==='')
         gameboard.board[Number(row)][Number(column)]='o'
         else return("spot is taken, try again")
     
+        let checkForScore= function(){ 
+             let sum=0
+            for(let i=0;i<gameboard.board.length;i++){
+                let row=gameboard.board[i];
+                for(let j=0;j<row.length;j++){
+                    if (gameboard.board[i][j]==='x'||gameboard.board[i][j]==='o') {
+                        sum+=1}
+                }
+            }      
+        }
+        checkForScore()
+        if (sum===9){
+            return "tie game"
+        }else {sum=0}
 
         let choice=0
         let secondChoice=0
-
         const computerChoice=function(){
-        let getComputerChoice=function(){
-            choice = Number(Math.floor(Math.random()*gameboard.board.length))
-            secondChoice=Number(Math.floor(Math.random()*gameboard.board.length))
-            
+            let getComputerChoice=function(){
+                choice = Number(Math.floor(Math.random()*gameboard.board.length))
+                secondChoice=Number(Math.floor(Math.random()*gameboard.board.length))
+            }
+            getComputerChoice()
+            do{getComputerChoice()
+            } while(!gameboard.board[Number(choice)][Number(secondChoice)]=='')
+        
+            gameboard.board[Number(choice)][Number(secondChoice)]='x'
+            console.log(gameboard.board)
+            console.log(choice)
+            console.log(secondChoice)
         }
-        getComputerChoice()
-
-        do{getComputerChoice()
-        } while(!gameboard.board[Number(choice)][Number(secondChoice)]=='')
-        
-        
-
-        
-        gameboard.board[Number(choice)][Number(secondChoice)]='x'
-        console.log(gameboard.board)
-        console.log(choice)
-        console.log(secondChoice)
-        }
-    
     computerChoice()
     }
 
