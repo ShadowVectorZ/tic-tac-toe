@@ -1,5 +1,5 @@
 function createPlayer(player){
-    const playerLetter='X'
+    const playerLetter=''
     return{player,playerLetter}
 }
 
@@ -27,24 +27,28 @@ let board=[
     ["","","",],
     ["","","",],
 ]
-return {board}
+
+
+return {board};
 })()
 
 
 
 
 
+    
+
 // const game=function(){
 // let gameMode='vsComputer'
 // if (gameMode==="vsComputer"){
 
     const singleRound=function(row,column){
-        if(gameboard.board[Number(row)][Number(column)]==='')
+        if(gameboard.board[Number(row)][Number(column)]===''){
         gameboard.board[Number(row)][Number(column)]='o'
+        }
         else return("spot is taken, try again")
-    
-        let checkForScore= function(){ 
-             let sum=0
+        let sum=0
+        let checkForTie= function(){ 
             for(let i=0;i<gameboard.board.length;i++){
                 let row=gameboard.board[i];
                 for(let j=0;j<row.length;j++){
@@ -53,9 +57,36 @@ return {board}
                 }
             }      
         }
-        checkForScore()
+        checkForTie()
         if (sum===9){
             return "tie game"
+        }else {sum=0}
+        let checkBoard=function(){
+            if (gameboard.board[0][0]==='x'&&gameboard.board[1][0]==='x'&&gameboard.board[2][0]==='x'||
+                gameboard.board[0][1]==='x'&&gameboard.board[1][1]==='x'&&gameboard.board[2][1]==='x'||
+                gameboard.board[0][2]==='x'&&gameboard.board[1][2]==='x'&&gameboard.board[2][2]==='x'||
+                gameboard.board[0][0]==='x'&&gameboard.board[1][1]==='x'&&gameboard.board[2][2]==='x'||
+                gameboard.board[0][2]==='x'&&gameboard.board[1][1]==='x'&&gameboard.board[2][0]==='x'||
+                gameboard.board[2][0]==='x'&&gameboard.board[2][1]==='x'&&gameboard.board[2][2]==='x'||
+                gameboard.board[1][0]==='x'&&gameboard.board[1][1]==='x'&&gameboard.board[1][2]==='x'||
+                gameboard.board[0][0]==='x'&&gameboard.board[0][1]==='x'&&gameboard.board[0][2]==='x'
+            ){sum= 'X' }
+            
+            else if (gameboard.board[0][0]==='o'&&gameboard.board[1][0]==='o'&&gameboard.board[2][0]==='o'||
+                    gameboard.board[0][1]==='o'&&gameboard.board[1][1]==='o'&&gameboard.board[2][1]==='o'||
+                    gameboard.board[0][2]==='o'&&gameboard.board[1][2]==='o'&&gameboard.board[2][2]==='o'||
+                    gameboard.board[0][0]==='o'&&gameboard.board[1][1]==='o'&&gameboard.board[2][2]==='o'||
+                    gameboard.board[0][2]==='o'&&gameboard.board[1][1]==='o'&&gameboard.board[2][0]==='o'||
+                    gameboard.board[2][0]==='o'&&gameboard.board[2][1]==='o'&&gameboard.board[2][2]==='o'||
+                    gameboard.board[1][0]==='o'&&gameboard.board[1][1]==='o'&&gameboard.board[1][2]==='o'||
+                    gameboard.board[0][0]==='o'&&gameboard.board[0][1]==='o'&&gameboard.board[0][2]==='o'
+            ){sum='O'}
+        }
+        checkBoard()
+        if (sum==='X'){
+            return "X wins"
+        }else if(sum==='O'){
+            return 'O wins'
         }else {sum=0}
 
         let choice=0
@@ -68,15 +99,19 @@ return {board}
             getComputerChoice()
             do{getComputerChoice()
             } while(!gameboard.board[Number(choice)][Number(secondChoice)]=='')
-        
             gameboard.board[Number(choice)][Number(secondChoice)]='x'
             console.log(gameboard.board)
             console.log(choice)
             console.log(secondChoice)
         }
     computerChoice()
+    checkBoard()
+        if (sum==='X'){
+            return "X wins"
+        }else if(sum==='O'){
+            return 'O wins'
+        }else {sum=0}
     }
-
     // playerChoice()
 // }
 
