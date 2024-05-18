@@ -28,13 +28,29 @@ let board=[
     ["","","",],
 ]
 
-
-return {board};
+let reset=function(){
+    for(let i=0;i<gameboard.board.length;i++){
+        let row=gameboard.board[i];
+        for(let j=0;j<row.length;j++){
+            gameboard.board[i][j]=''
+        }
+    }    
+    console.log(board)
+}
+return {board,reset};
 })()
 
 
 
-
+const changeGameMode=function(){
+    let gameMode
+    if (gameMode==='Vs Computer'){
+        gameMode==='Vs Player'
+    }
+    else if(gameMode==='Vs Player'){
+        gameMode==='Vs Computer'
+    }
+}
 
     
 
@@ -48,19 +64,6 @@ return {board};
         }
         else return("spot is taken, try again")
         let sum=0
-        let checkForTie= function(){ 
-            for(let i=0;i<gameboard.board.length;i++){
-                let row=gameboard.board[i];
-                for(let j=0;j<row.length;j++){
-                    if (gameboard.board[i][j]==='x'||gameboard.board[i][j]==='o') {
-                        sum+=1}
-                }
-            }      
-        }
-        checkForTie()
-        if (sum===9){
-            return "tie game"
-        }else {sum=0}
         let checkBoard=function(){
             if (gameboard.board[0][0]==='x'&&gameboard.board[1][0]==='x'&&gameboard.board[2][0]==='x'||
                 gameboard.board[0][1]==='x'&&gameboard.board[1][1]==='x'&&gameboard.board[2][1]==='x'||
@@ -71,7 +74,6 @@ return {board};
                 gameboard.board[1][0]==='x'&&gameboard.board[1][1]==='x'&&gameboard.board[1][2]==='x'||
                 gameboard.board[0][0]==='x'&&gameboard.board[0][1]==='x'&&gameboard.board[0][2]==='x'
             ){sum= 'X' }
-            
             else if (gameboard.board[0][0]==='o'&&gameboard.board[1][0]==='o'&&gameboard.board[2][0]==='o'||
                     gameboard.board[0][1]==='o'&&gameboard.board[1][1]==='o'&&gameboard.board[2][1]==='o'||
                     gameboard.board[0][2]==='o'&&gameboard.board[1][2]==='o'&&gameboard.board[2][2]==='o'||
@@ -89,6 +91,19 @@ return {board};
             return 'O wins'
         }else {sum=0}
 
+        let checkForTie= function(){ 
+            for(let i=0;i<gameboard.board.length;i++){
+                let row=gameboard.board[i];
+                for(let j=0;j<row.length;j++){
+                    if (gameboard.board[i][j]==='x'||gameboard.board[i][j]==='o') {
+                        sum+=1}
+                }
+            }      
+        }
+        checkForTie()
+        if (sum===9){
+            return "tie game"
+        }else {sum=0}
         let choice=0
         let secondChoice=0
         const computerChoice=function(){
@@ -112,8 +127,8 @@ return {board};
             return 'O wins'
         }else {sum=0}
     }
-    // playerChoice()
-// }
+    
+    // }
 
 // else if(gameMode==='vsPlayer'){
 
