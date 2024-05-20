@@ -54,7 +54,7 @@ const changeGameMode=function(){
 
     
 
-// const game=function(){
+const game=(function(){
 // let gameMode='vsComputer'
 // if (gameMode==="vsComputer"){
 
@@ -64,32 +64,13 @@ const changeGameMode=function(){
         }
         else return("spot is taken, try again")
         let sum=0
-        let checkBoard=function(){
-            if (gameboard.board[0][0]==='x'&&gameboard.board[1][0]==='x'&&gameboard.board[2][0]==='x'||
-                gameboard.board[0][1]==='x'&&gameboard.board[1][1]==='x'&&gameboard.board[2][1]==='x'||
-                gameboard.board[0][2]==='x'&&gameboard.board[1][2]==='x'&&gameboard.board[2][2]==='x'||
-                gameboard.board[0][0]==='x'&&gameboard.board[1][1]==='x'&&gameboard.board[2][2]==='x'||
-                gameboard.board[0][2]==='x'&&gameboard.board[1][1]==='x'&&gameboard.board[2][0]==='x'||
-                gameboard.board[2][0]==='x'&&gameboard.board[2][1]==='x'&&gameboard.board[2][2]==='x'||
-                gameboard.board[1][0]==='x'&&gameboard.board[1][1]==='x'&&gameboard.board[1][2]==='x'||
-                gameboard.board[0][0]==='x'&&gameboard.board[0][1]==='x'&&gameboard.board[0][2]==='x'
-            ){sum= 'X' }
-            else if (gameboard.board[0][0]==='o'&&gameboard.board[1][0]==='o'&&gameboard.board[2][0]==='o'||
-                    gameboard.board[0][1]==='o'&&gameboard.board[1][1]==='o'&&gameboard.board[2][1]==='o'||
-                    gameboard.board[0][2]==='o'&&gameboard.board[1][2]==='o'&&gameboard.board[2][2]==='o'||
-                    gameboard.board[0][0]==='o'&&gameboard.board[1][1]==='o'&&gameboard.board[2][2]==='o'||
-                    gameboard.board[0][2]==='o'&&gameboard.board[1][1]==='o'&&gameboard.board[2][0]==='o'||
-                    gameboard.board[2][0]==='o'&&gameboard.board[2][1]==='o'&&gameboard.board[2][2]==='o'||
-                    gameboard.board[1][0]==='o'&&gameboard.board[1][1]==='o'&&gameboard.board[1][2]==='o'||
-                    gameboard.board[0][0]==='o'&&gameboard.board[0][1]==='o'&&gameboard.board[0][2]==='o'
-            ){sum='O'}
-        }
-        checkBoard()
-        if (sum==='X'){
-            return "X wins"
-        }else if(sum==='O'){
-            return 'O wins'
-        }else {sum=0}
+        
+        // checkBoard()
+        // if (sum==='X'){
+        //     return "X wins"
+        // }else if(sum==='O'){
+        //     return 'O wins'
+        // }else {sum=0}
 
         let checkForTie= function(){ 
             for(let i=0;i<gameboard.board.length;i++){
@@ -120,12 +101,33 @@ const changeGameMode=function(){
             console.log(secondChoice)
         }
     computerChoice()
-    checkBoard()
-        if (sum==='X'){
-            return "X wins"
-        }else if(sum==='O'){
-            return 'O wins'
-        }else {sum=0}
+    // checkBoard()
+    //     if (sum==='X'){
+    //         return "X wins"
+    //     }else if(sum==='O'){
+    //         return 'O wins'
+    //     }else {sum=0}
+    }
+
+    let checkBoard=function(){
+        if (gameboard.board[0][0]==='x'&&gameboard.board[1][0]==='x'&&gameboard.board[2][0]==='x'||
+            gameboard.board[0][1]==='x'&&gameboard.board[1][1]==='x'&&gameboard.board[2][1]==='x'||
+            gameboard.board[0][2]==='x'&&gameboard.board[1][2]==='x'&&gameboard.board[2][2]==='x'||
+            gameboard.board[0][0]==='x'&&gameboard.board[1][1]==='x'&&gameboard.board[2][2]==='x'||
+            gameboard.board[0][2]==='x'&&gameboard.board[1][1]==='x'&&gameboard.board[2][0]==='x'||
+            gameboard.board[2][0]==='x'&&gameboard.board[2][1]==='x'&&gameboard.board[2][2]==='x'||
+            gameboard.board[1][0]==='x'&&gameboard.board[1][1]==='x'&&gameboard.board[1][2]==='x'||
+            gameboard.board[0][0]==='x'&&gameboard.board[0][1]==='x'&&gameboard.board[0][2]==='x'
+        ){return 'X wins' }
+        else if (gameboard.board[0][0]==='o'&&gameboard.board[1][0]==='o'&&gameboard.board[2][0]==='o'||
+                gameboard.board[0][1]==='o'&&gameboard.board[1][1]==='o'&&gameboard.board[2][1]==='o'||
+                gameboard.board[0][2]==='o'&&gameboard.board[1][2]==='o'&&gameboard.board[2][2]==='o'||
+                gameboard.board[0][0]==='o'&&gameboard.board[1][1]==='o'&&gameboard.board[2][2]==='o'||
+                gameboard.board[0][2]==='o'&&gameboard.board[1][1]==='o'&&gameboard.board[2][0]==='o'||
+                gameboard.board[2][0]==='o'&&gameboard.board[2][1]==='o'&&gameboard.board[2][2]==='o'||
+                gameboard.board[1][0]==='o'&&gameboard.board[1][1]==='o'&&gameboard.board[1][2]==='o'||
+                gameboard.board[0][0]==='o'&&gameboard.board[0][1]==='o'&&gameboard.board[0][2]==='o'
+        ){return 'O wins'}
     }
     
     // }
@@ -133,5 +135,6 @@ const changeGameMode=function(){
 // else if(gameMode==='vsPlayer'){
 
 // }
+return{singleRound, checkBoard};
 
-// }
+})()
