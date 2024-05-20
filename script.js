@@ -58,55 +58,11 @@ const game=(function(){
 // let gameMode='vsComputer'
 // if (gameMode==="vsComputer"){
 
-    const singleRound=function(row,column){
+    const playerChoice=function(row,column){
         if(gameboard.board[Number(row)][Number(column)]===''){
         gameboard.board[Number(row)][Number(column)]='o'
         }
         else return("spot is taken, try again")
-        let sum=0
-        
-        // checkBoard()
-        // if (sum==='X'){
-        //     return "X wins"
-        // }else if(sum==='O'){
-        //     return 'O wins'
-        // }else {sum=0}
-
-        let checkForTie= function(){ 
-            for(let i=0;i<gameboard.board.length;i++){
-                let row=gameboard.board[i];
-                for(let j=0;j<row.length;j++){
-                    if (gameboard.board[i][j]==='x'||gameboard.board[i][j]==='o') {
-                        sum+=1}
-                }
-            }      
-        }
-        checkForTie()
-        if (sum===9){
-            return "tie game"
-        }else {sum=0}
-        let choice=0
-        let secondChoice=0
-        const computerChoice=function(){
-            let getComputerChoice=function(){
-                choice = Number(Math.floor(Math.random()*gameboard.board.length))
-                secondChoice=Number(Math.floor(Math.random()*gameboard.board.length))
-            }
-            getComputerChoice()
-            do{getComputerChoice()
-            } while(!gameboard.board[Number(choice)][Number(secondChoice)]=='')
-            gameboard.board[Number(choice)][Number(secondChoice)]='x'
-            console.log(gameboard.board)
-            console.log(choice)
-            console.log(secondChoice)
-        }
-    computerChoice()
-    // checkBoard()
-    //     if (sum==='X'){
-    //         return "X wins"
-    //     }else if(sum==='O'){
-    //         return 'O wins'
-    //     }else {sum=0}
     }
 
     let checkBoard=function(){
@@ -130,11 +86,40 @@ const game=(function(){
         ){return 'O wins'}
     }
     
+
+    let checkForTie= function(){
+        let sum=0 
+        for(let i=0;i<gameboard.board.length;i++){
+            let row=gameboard.board[i];
+            for(let j=0;j<row.length;j++){
+                if (gameboard.board[i][j]==='x'||gameboard.board[i][j]==='o') {
+                    sum+=1}
+            }
+        } if (sum===9){
+            return 'tie game'
+        } 
+    }
+
+    const computerChoice=function(){
+        let choice=0
+        let secondChoice=0
+        let getComputerChoice=function(){
+            choice = Number(Math.floor(Math.random()*gameboard.board.length))
+            secondChoice=Number(Math.floor(Math.random()*gameboard.board.length))
+        }
+        getComputerChoice()
+        do{getComputerChoice()
+        } while(!gameboard.board[Number(choice)][Number(secondChoice)]=='')
+        gameboard.board[Number(choice)][Number(secondChoice)]='x'
+        console.log(gameboard.board)
+        
+    }
+
     // }
 
 // else if(gameMode==='vsPlayer'){
 
 // }
-return{singleRound, checkBoard};
+return{playerChoice, checkBoard, checkForTie,computerChoice};
 
 })()
