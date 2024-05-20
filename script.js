@@ -1,13 +1,20 @@
 function createPlayer(player){
-    const playerLetter=''
-    return{player,playerLetter}
+    const playerSign=''
+    const changePlayerSign= () =>
+        {if(this.playerSign==='x'){
+            this.playerSign='o'
+        }
+        else if(this.playerSign==='o'){
+        this.playerSign='x'}}
+    return{player,playerSign,changePlayerSign}
 }
 
 
 //need to add objects or values
 const player1=(function(player1){
     player1= createPlayer("player1")
-   return{player1}
+    this.playerSign='x'
+   return{player1,playerSign}
 })()
 
 
@@ -59,9 +66,11 @@ const game=(function(){
 // if (gameMode==="vsComputer"){
 
     const playerChoice=function(row,column){
+        // if(game.checkBoard===true&&game.checkForTie===true){
         if(gameboard.board[Number(row)][Number(column)]===''){
-        gameboard.board[Number(row)][Number(column)]='o'
-        }
+        gameboard.board[Number(row)][Number(column)]=`${player1.playerSign}`
+    console.log(gameboard.board)    
+    }
         else return("spot is taken, try again")
     }
 
@@ -110,7 +119,12 @@ const game=(function(){
         getComputerChoice()
         do{getComputerChoice()
         } while(!gameboard.board[Number(choice)][Number(secondChoice)]=='')
-        gameboard.board[Number(choice)][Number(secondChoice)]='x'
+        let computerSign=''
+        if(player1.playerSign==='x'){
+            computerSign='o'
+        }
+        else computerSign='x'
+        gameboard.board[Number(choice)][Number(secondChoice)]=`${computerSign}`
         console.log(gameboard.board)
         
     }
@@ -123,3 +137,11 @@ const game=(function(){
 return{playerChoice, checkBoard, checkForTie,computerChoice};
 
 })()
+
+
+
+
+//console.log(game.playerChoice(1,1))
+//console.log(game.checkBoard())
+//console.log(game.checkForTie())
+//console.log(game.computerChoice())
