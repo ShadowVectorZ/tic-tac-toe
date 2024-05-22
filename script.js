@@ -1,12 +1,6 @@
 function createPlayer(player){
     const playerSign=''
-    const changePlayerSign= () =>
-        {if(this.playerSign==='x'){
-            this.playerSign='o'
-        }
-        else if(this.playerSign==='o'){
-        this.playerSign='x'}}
-    return{player,playerSign,changePlayerSign}
+    return{player,playerSign}
 }
 
 
@@ -66,7 +60,7 @@ const game=(function(){
 // if (gameMode==="vsComputer"){
 
     const playerChoice=function(row,column){
-        // if(game.checkBoard===true&&game.checkForTie===true){
+
         if(gameboard.board[Number(row)][Number(column)]===''){
         gameboard.board[Number(row)][Number(column)]=`${player1.playerSign}`
     console.log(gameboard.board)    
@@ -129,7 +123,7 @@ const game=(function(){
         
     }
 
-    // }
+    
 
 // else if(gameMode==='vsPlayer'){
 
