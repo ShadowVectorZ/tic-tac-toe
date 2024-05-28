@@ -15,7 +15,14 @@ const player1=(function(player1){
 //need to add objects or values
 const player2=(function(player2){
  player2=createPlayer('player2')
-return{player2}
+ if(player1.playerSign==='o'){
+    this.playerSign='x'
+ }
+
+ else if (player1.playerSign==='x'){
+    this.playerSign='o'
+ }
+return{player2,playerSign}
 })()
 
 
@@ -29,6 +36,22 @@ let board=[
     ["","","",],
 ]
 
+let renderBoard=function(){
+    const container=document.querySelector('#container')
+    while( container.hasChildNodes() ){
+        container.removeChild(container.lastChild);} 
+    for(let i=0;i<gameboard.board.length;i++){
+        let row=gameboard.board[i];
+        for(let j=0;j<row.length;j++){
+            const content=document.createElement('div')
+            content.classList.add('content')
+            content.textContent=gameboard.board[i][j]
+            container.appendChild(content)
+            }
+    }  
+
+}
+
 let reset=function(){
     for(let i=0;i<gameboard.board.length;i++){
         let row=gameboard.board[i];
@@ -36,9 +59,9 @@ let reset=function(){
             gameboard.board[i][j]=''
         }
     }    
-    console.log(board)
+    renderBoard()
 }
-return {board,reset};
+return {board,renderBoard,reset,};
 })()
 
 
@@ -60,10 +83,10 @@ const game=(function(){
 // if (gameMode==="vsComputer"){
 
     const playerChoice=function(row,column){
-
         if(gameboard.board[Number(row)][Number(column)]===''){
         gameboard.board[Number(row)][Number(column)]=`${player1.playerSign}`
-    console.log(gameboard.board)    
+    gameboard.renderBoard()
+     
     }
         else return("spot is taken, try again")
     }
@@ -119,7 +142,7 @@ const game=(function(){
         }
         else computerSign='x'
         gameboard.board[Number(choice)][Number(secondChoice)]=`${computerSign}`
-        console.log(gameboard.board)
+        gameboard.renderBoard()
         
     }
 
