@@ -41,15 +41,32 @@ let renderBoard=function(){
     while( container.hasChildNodes() ){
         container.removeChild(container.lastChild);} 
     for(let i=0;i<gameboard.board.length;i++){
-        let row=gameboard.board[i];
-        for(let j=0;j<row.length;j++){
+        let array=gameboard.board[i];
+        for(let j=0;j<array.length;j++){
             const content=document.createElement('div')
+            let row=i
+            let column=j
             content.classList.add('content')
+            content.addEventListener('click',()=>{
+                game.playerChoice(Number(row), Number(column))
+                game.checkBoard()
+                game.checkForTie()
+                game.computerChoice()
+                game.checkBoard()
+            })
             content.textContent=gameboard.board[i][j]
             container.appendChild(content)
             }
     }  
 
+}
+
+let startGame=function(){
+  let startButton=document.querySelector('#start-button')
+  startButton.addEventListener('click',()=>{
+    renderBoard()
+    startButton.remove()
+  })
 }
 
 let reset=function(){
@@ -61,9 +78,9 @@ let reset=function(){
     }    
     renderBoard()
 }
-return {board,renderBoard,reset,};
+return {board,renderBoard,startGame, reset,};
 })()
-
+gameboard.startGame()
 
 
 const changeGameMode=function(){
