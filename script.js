@@ -38,21 +38,34 @@ let board=[
 
 let renderBoard=function(){
     const container=document.querySelector('#container')
+    let results=document.querySelector('#results')
     while( container.hasChildNodes() ){
         container.removeChild(container.lastChild);} 
     for(let i=0;i<gameboard.board.length;i++){
         let array=gameboard.board[i];
         for(let j=0;j<array.length;j++){
-            const content=document.createElement('div')
+            const content=document.createElement('button')
             let row=i
             let column=j
             content.classList.add('content')
             content.addEventListener('click',()=>{
                 game.playerChoice(Number(row), Number(column))
-                game.checkBoard()
-                game.checkForTie()
+                let playerWin=game.checkBoard()
+                if (playerWin===true){
+                    results.textContent="player wins"
+                    return "player wins"
+                }
+                let run=game.checkForTie()
+                if(run===false){
+                    results.textContent="Tie Game"
+                    return "tie game"
+                }
                 game.computerChoice()
-                game.checkBoard()
+                let computerWin=game.checkBoard()
+                if (computerWin===true){
+                    results.textContent="computer wins"
+                    return "computer wins"
+                }
             })
             content.textContent=gameboard.board[i][j]
             container.appendChild(content)
@@ -69,6 +82,16 @@ let startGame=function(){
   })
 }
 
+let endGame=function(){
+    // let results=document.querySelector('#results')
+    // game.checkForTie()
+    // if(game.checkForTie="tie"){
+    //     results.textContent='Tie Game'
+    //     return "tie"
+    // }
+    // else return true
+}
+
 let reset=function(){
     for(let i=0;i<gameboard.board.length;i++){
         let row=gameboard.board[i];
@@ -78,7 +101,7 @@ let reset=function(){
     }    
     renderBoard()
 }
-return {board,renderBoard,startGame, reset,};
+return {board,renderBoard,startGame,endGame,reset,};
 })()
 gameboard.startGame()
 
@@ -117,7 +140,7 @@ const game=(function(){
             gameboard.board[2][0]==='x'&&gameboard.board[2][1]==='x'&&gameboard.board[2][2]==='x'||
             gameboard.board[1][0]==='x'&&gameboard.board[1][1]==='x'&&gameboard.board[1][2]==='x'||
             gameboard.board[0][0]==='x'&&gameboard.board[0][1]==='x'&&gameboard.board[0][2]==='x'
-        ){return 'X wins' }
+        ){return true }
         else if (gameboard.board[0][0]==='o'&&gameboard.board[1][0]==='o'&&gameboard.board[2][0]==='o'||
                 gameboard.board[0][1]==='o'&&gameboard.board[1][1]==='o'&&gameboard.board[2][1]==='o'||
                 gameboard.board[0][2]==='o'&&gameboard.board[1][2]==='o'&&gameboard.board[2][2]==='o'||
@@ -126,7 +149,7 @@ const game=(function(){
                 gameboard.board[2][0]==='o'&&gameboard.board[2][1]==='o'&&gameboard.board[2][2]==='o'||
                 gameboard.board[1][0]==='o'&&gameboard.board[1][1]==='o'&&gameboard.board[1][2]==='o'||
                 gameboard.board[0][0]==='o'&&gameboard.board[0][1]==='o'&&gameboard.board[0][2]==='o'
-        ){return 'O wins'}
+        ){return true}
     }
     
 
@@ -139,8 +162,9 @@ const game=(function(){
                     sum+=1}
             }
         } if (sum===9){
-            return 'tie game'
-        } 
+            return false
+        } else {sum=0
+        return true}
     }
 
     const computerChoice=function(){
