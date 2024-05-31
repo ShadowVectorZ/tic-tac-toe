@@ -68,6 +68,13 @@ let renderBoard=function(){
                 }
             })
             content.textContent=gameboard.board[i][j]
+            if(content.textContent==='x'||content.textContent==='o'){
+                content.disabled=true
+            }
+            let endGame=game.checkBoard()
+            if (endGame===true){
+                content.disabled=true
+            }
             container.appendChild(content)
             }
     }  
