@@ -73,6 +73,7 @@ let renderBoard=function(){
                 let computerWin=game.checkBoard()
                 if (computerWin===true){
                     results.textContent="computer wins"
+                    results.appendChild(playAgain);
                     return "computer wins"
                 }
             })
