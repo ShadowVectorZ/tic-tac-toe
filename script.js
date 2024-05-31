@@ -39,6 +39,13 @@ let board=[
 let renderBoard=function(){
     const container=document.querySelector('#container')
     let results=document.querySelector('#results')
+    const playAgain=document.createElement('button') 
+                playAgain.classList.add('play-again') 
+                  playAgain.textContent="Play Again" 
+                  playAgain.addEventListener('click',()=>{
+                    results.textContent=''
+                    playAgain.remove()
+                    reset()})
     while( container.hasChildNodes() ){
         container.removeChild(container.lastChild);} 
     for(let i=0;i<gameboard.board.length;i++){
@@ -53,11 +60,13 @@ let renderBoard=function(){
                 let playerWin=game.checkBoard()
                 if (playerWin===true){
                     results.textContent="player wins"
+                    results.appendChild(playAgain);
                     return "player wins"
                 }
                 let run=game.checkForTie()
                 if(run===false){
                     results.textContent="Tie Game"
+                    results.appendChild(playAgain);
                     return "tie game"
                 }
                 game.computerChoice()
@@ -73,7 +82,10 @@ let renderBoard=function(){
             }
             let endGame=game.checkBoard()
             if (endGame===true){
+                
                 content.disabled=true
+                
+             
             }
             container.appendChild(content)
             }
@@ -89,15 +101,6 @@ let startGame=function(){
   })
 }
 
-let endGame=function(){
-    // let results=document.querySelector('#results')
-    // game.checkForTie()
-    // if(game.checkForTie="tie"){
-    //     results.textContent='Tie Game'
-    //     return "tie"
-    // }
-    // else return true
-}
 
 let reset=function(){
     for(let i=0;i<gameboard.board.length;i++){
@@ -108,7 +111,7 @@ let reset=function(){
     }    
     renderBoard()
 }
-return {board,renderBoard,startGame,endGame,reset,};
+return {board,renderBoard,startGame,reset,};
 })()
 gameboard.startGame()
 
