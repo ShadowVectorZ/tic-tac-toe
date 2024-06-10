@@ -15,13 +15,7 @@ const player1=(function(player1){
 //need to add objects or values
 const player2=(function(player2){
  player2=createPlayer('player2')
- if(player1.playerSign==='o'){
-    this.playerSign='x'
- }
-
- else if (player1.playerSign==='x'){
-    this.playerSign='o'
- }
+this.playerSign='o'
 return{player2,playerSign}
 })()
 
@@ -56,7 +50,9 @@ let renderBoard=function(){
             let column=j
             content.classList.add('content')
             content.addEventListener('click',()=>{
-                game.playerChoice(Number(row), Number(column))
+                let gameMode=mode
+                if(gameMode==='playerVsComputer'){
+                game.playerChoice1(Number(row), Number(column))
                 let playerWin=game.checkBoard()
                 if (playerWin===true){
                     results.textContent="player wins"
@@ -76,6 +72,30 @@ let renderBoard=function(){
                     results.appendChild(playAgain);
                     return "computer wins"
                 }
+            }
+
+            else if(gameMode==='playerVsPlayer'){
+                game.playerChoice1(Number(row), Number(column))
+                let player1Win=game.checkBoard()
+                if (player1Win===true){
+                    results.textContent="player 1 wins"
+                    results.appendChild(playAgain);
+                    return "player 1 wins"
+                }
+                let run=game.checkForTie()
+                if(run===false){
+                    results.textContent="Tie Game"
+                    results.appendChild(playAgain);
+                    return "tie game"
+                }
+                game.playerChoice2(Number(row), Number(column))
+                let player2Win=game.checkBoard()
+                if (player2Win===true){
+                    results.textContent="Player 2 wins"
+                    results.appendChild(playAgain);
+                    return "player 2 wins"
+                }
+            }
             })
             content.textContent=gameboard.board[i][j]
             if(content.textContent==='x'||content.textContent==='o'){
@@ -94,11 +114,34 @@ let renderBoard=function(){
 
 }
 
+let mode='playerVsComputer'
+
+const changeMode=function(){
+   
+    if (mode==='playerVsPlayer'){
+        mode='playerVsComputer'
+        return mode
+    }
+    else if (mode==='playerVsComputer'){
+        mode='playerVsPlayer'
+        return mode
+    }
+}
+
 let startGame=function(){
+    let modeDiv=document.querySelector("#mode-div")
+    modeDiv.textContent=`${mode}`
+    let changeModeButton=document.querySelector('#change-mode')
+    changeModeButton.addEventListener('click',()=>{
+    changeMode()
+    modeDiv.textContent=`${mode}`
+    })
   let startButton=document.querySelector('#start-button')
   startButton.addEventListener('click',()=>{
     renderBoard()
     startButton.remove()
+    changeModeButton.remove()
+    modeDiv.remove()
   })
 }
 
@@ -112,28 +155,21 @@ let reset=function(){
     }    
     renderBoard()
 }
-return {board,renderBoard,startGame,reset,};
+
+
+
+return {board,renderBoard,startGame,reset,mode, changeMode};
 })()
 gameboard.startGame()
 
 
-const changeGameMode=function(){
-    let gameMode
-    if (gameMode==='Vs Computer'){
-        gameMode==='Vs Player'
-    }
-    else if(gameMode==='Vs Player'){
-        gameMode==='Vs Computer'
-    }
-}
 
     
 
 const game=(function(){
-// let gameMode='vsComputer'
-// if (gameMode==="vsComputer"){
-
-    const playerChoice=function(row,column){
+    
+    
+    const playerChoice1=function(row,column){
         if(gameboard.board[Number(row)][Number(column)]===''){
         gameboard.board[Number(row)][Number(column)]=`${player1.playerSign}`
     gameboard.renderBoard()
@@ -141,6 +177,19 @@ const game=(function(){
     }
         else return("spot is taken, try again")
     }
+
+    //need to create code that changes
+    //player turn
+
+    const playerChoice2=function(row,column){
+        if(gameboard.board[Number(row)][Number(column)]===''){
+        gameboard.board[Number(row)][Number(column)]=`${player2.playerSign}`
+    gameboard.renderBoard()
+     
+    }
+        else return("spot is taken, try again")
+    }
+
 
     let checkBoard=function(){
         if (gameboard.board[0][0]==='x'&&gameboard.board[1][0]==='x'&&gameboard.board[2][0]==='x'||
@@ -203,7 +252,7 @@ const game=(function(){
 // else if(gameMode==='vsPlayer'){
 
 // }
-return{playerChoice, checkBoard, checkForTie,computerChoice};
+return{playerChoice1, playerChoice2, checkBoard, checkForTie,computerChoice,};
 
 })()
 
