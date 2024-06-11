@@ -46,22 +46,22 @@ let renderBoard=function(){
             content.classList.add('content')
             content.addEventListener('click',()=>{
                 let gameMode=mode
-                if(gameMode==='playerVsComputer'){
+                if(gameMode==='Player Vs Computer'){
                  game.playerChoice(Number(row), Number(column))
                  let playerWin=game.checkBoard()
                     if (playerWin==='x'){
                         results.textContent="player wins"
                         results.appendChild(playAgain);
-                        background.appendChild(domElements.changeModeButton)
                         background.appendChild(domElements.modeDiv)
+                        background.appendChild(domElements.changeModeButton)
                         return "player wins"
                     }
                  let run=game.checkForTie()
                     if(run===false){
                         results.textContent="Tie Game"
                         results.appendChild(playAgain);
-                        background.appendChild(domElements.changeModeButton)
                         background.appendChild(domElements.modeDiv)
+                        background.appendChild(domElements.changeModeButton)
                         return "tie game"
                     }
                  game.computerChoice()
@@ -69,28 +69,28 @@ let renderBoard=function(){
                     if (computerWin==='o'){
                         results.textContent="computer wins"
                         results.appendChild(playAgain);
-                        background.appendChild(domElements.changeModeButton)
                         background.appendChild(domElements.modeDiv)
+                        background.appendChild(domElements.changeModeButton)
                         return "computer wins"
                     }
                 }
 
-                else if(gameMode==='playerVsPlayer'){
+                else if(gameMode==='Player Vs Player'){
                     game.playerChoice(Number(row), Number(column))
                     let player1Win=game.checkBoard()
                     if (player1Win==='x'){
                         results.textContent="player 1 wins"
                         results.appendChild(playAgain);
-                        background.appendChild(domElements.changeModeButton)
                         background.appendChild(domElements.modeDiv)
+                        background.appendChild(domElements.changeModeButton)
                         return "player 1 wins"
                     }
                     let run=game.checkForTie()
                     if(run===false){
                         results.textContent="Tie Game"
                         results.appendChild(playAgain);
-                        background.appendChild(domElements.changeModeButton)
                         background.appendChild(domElements.modeDiv)
+                        background.appendChild(domElements.changeModeButton)
                         return "tie game"
                     }
                     game.changePlayer()
@@ -98,8 +98,8 @@ let renderBoard=function(){
                     if (player2Win==='o'){
                         results.textContent="Player 2 wins"
                         results.appendChild(playAgain);
-                        background.appendChild(domElements.changeModeButton)
                         background.appendChild(domElements.modeDiv)
+                        background.appendChild(domElements.changeModeButton)
                         return "player 2 wins"
                     }
                 }
@@ -117,15 +117,15 @@ let renderBoard=function(){
     }  
 }
 
-let mode='playerVsComputer'
+let mode='Player Vs Computer'
 
 const changeMode=function(){
-    if (mode==='playerVsPlayer'){
-        mode='playerVsComputer'
+    if (mode==='Player Vs Player'){
+        mode='Player Vs Computer'
         return mode
     }
-    else if (mode==='playerVsComputer'){
-        mode='playerVsPlayer'
+    else if (mode==='Player Vs Computer'){
+        mode='Player Vs Player'
         return mode
     }
 }
