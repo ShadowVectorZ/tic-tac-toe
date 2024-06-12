@@ -25,15 +25,17 @@ let board=[
    
 let renderBoard=function(){
     const container=document.querySelector('#container')
-    let results=document.querySelector('#results')
+    
+    
     const playAgain=document.createElement('button') 
                 playAgain.classList.add('play-again') 
                   playAgain.textContent="Play Again" 
                   playAgain.addEventListener('click',()=>{
                     results.textContent=''
                     playAgain.remove()
-                    background.removeChild(domElements.changeModeButton)
-                    background.removeChild(domElements.modeDiv)
+                    while (results.firstChild) {
+                        results.removeChild(results.firstChild);
+                      }
                     reset()})
     while( container.hasChildNodes() ){
         container.removeChild(container.lastChild);} 
@@ -52,16 +54,16 @@ let renderBoard=function(){
                     if (playerWin==='x'){
                         results.textContent="player wins"
                         results.appendChild(playAgain);
-                        background.appendChild(domElements.modeDiv)
-                        background.appendChild(domElements.changeModeButton)
+                        results.appendChild(domElements.modeDiv)
+                        results.appendChild(domElements.changeModeButton)
                         return "player wins"
                     }
                  let run=game.checkForTie()
                     if(run===false){
                         results.textContent="Tie Game"
                         results.appendChild(playAgain);
-                        background.appendChild(domElements.modeDiv)
-                        background.appendChild(domElements.changeModeButton)
+                        results.appendChild(domElements.modeDiv)
+                        results.appendChild(domElements.changeModeButton)
                         return "tie game"
                     }
                  game.computerChoice()
@@ -69,8 +71,8 @@ let renderBoard=function(){
                     if (computerWin==='o'){
                         results.textContent="computer wins"
                         results.appendChild(playAgain);
-                        background.appendChild(domElements.modeDiv)
-                        background.appendChild(domElements.changeModeButton)
+                        results.appendChild(domElements.modeDiv)
+                        results.appendChild(domElements.changeModeButton)
                         return "computer wins"
                     }
                 }
@@ -81,16 +83,16 @@ let renderBoard=function(){
                     if (player1Win==='x'){
                         results.textContent="player 1 wins"
                         results.appendChild(playAgain);
-                        background.appendChild(domElements.modeDiv)
-                        background.appendChild(domElements.changeModeButton)
+                        results.appendChild(domElements.modeDiv)
+                        results.appendChild(domElements.changeModeButton)
                         return "player 1 wins"
                     }
                     let run=game.checkForTie()
                     if(run===false){
                         results.textContent="Tie Game"
                         results.appendChild(playAgain);
-                        background.appendChild(domElements.modeDiv)
-                        background.appendChild(domElements.changeModeButton)
+                        results.appendChild(domElements.modeDiv)
+                        results.appendChild(domElements.changeModeButton)
                         return "tie game"
                     }
                     game.changePlayer()
@@ -98,8 +100,8 @@ let renderBoard=function(){
                     if (player2Win==='o'){
                         results.textContent="Player 2 wins"
                         results.appendChild(playAgain);
-                        background.appendChild(domElements.modeDiv)
-                        background.appendChild(domElements.changeModeButton)
+                        results.appendChild(domElements.modeDiv)
+                        results.appendChild(domElements.changeModeButton)
                         return "player 2 wins"
                     }
                 }
@@ -132,9 +134,10 @@ const changeMode=function(){
 const domElements=(function(){
     let background=document.querySelector('#background')
     let modeDiv=document.querySelector("#mode-div")
+    let results=document.querySelector('#results')
     modeDiv.textContent=`${mode}`
     let changeModeButton=document.querySelector('#change-mode')
-    return{background,modeDiv,changeModeButton}
+    return{background,modeDiv, results, changeModeButton}
 })()
 
 let startGame=function(){ 
@@ -146,8 +149,8 @@ let startGame=function(){
   startButton.addEventListener('click',()=>{
     renderBoard()
     startButton.remove()
-    background.removeChild(domElements.changeModeButton)
-    background.removeChild(domElements.modeDiv)
+    results.removeChild(domElements.changeModeButton)
+    results.removeChild(domElements.modeDiv)
   })
 }
 
